@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan int) {
+func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan int, t int) {
 	//defer wg.Done()
 	defer func() {
 		<-s
@@ -27,9 +27,17 @@ func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan 
 		fmt.Println(err)
 		return
 	}
-	// create timeout-context and add it to request
-	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*1000)
-	defer cancel()
+
+	var ctx context.Context
+	// no-timeout case
+	if t < 1 {
+		ctx = context.Background()
+	} else { // timeout case
+		// create timeout-context and add it to request
+		cancelCtx, cancel := context.WithTimeout(context.Background(), time.Millisecond*time.Duration(t))
+		ctx = cancelCtx
+		defer cancel()
+	}
 	req = req.WithContext(ctx)
 	// create client and run request
 	client := &http.Client{}
@@ -57,7 +65,7 @@ func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan 
 	storage.SetValue(url, count)
 }
 
-func Search(k string, urls []string, limit int) map[string]int {
+func Search(k string, urls []string, limit int, timeout int) map[string]int {
 	initStorage := make(map[string]int, len(urls))
 	storage := NewStorage(initStorage)
 	var wg sync.WaitGroup
@@ -69,7 +77,7 @@ func Search(k string, urls []string, limit int) map[string]int {
 	for _, url := range urls {
 		semaphore <- 1
 		wg.Add(1)
-		go worker(url, k, &wg, storage, semaphore)
+		go worker(url, k, &wg, storage, semaphore, timeout)
 	}
 	wg.Wait()
 	return storage.storage
