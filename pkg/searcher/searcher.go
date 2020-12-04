@@ -19,7 +19,7 @@ func Search(k string, urls []string) (map[string]int, error) {
 		if err != nil {
 			return results, err
 		}
-		
+
 		err = resp.Body.Close()
 		if err != nil {
 			return results, err
