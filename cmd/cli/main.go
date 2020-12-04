@@ -1,10 +1,10 @@
 package main
 
 import (
-"errors"
-"flag"
-"fmt"
-"strings"
+	"errors"
+	"flag"
+	"fmt"
+	"strings"
 )
 
 type urlsFlag struct {
@@ -14,7 +14,6 @@ type urlsFlag struct {
 func (f *urlsFlag) GetUrls() []string {
 	return f.Urls
 }
-
 
 func (f *urlsFlag) String() string {
 	return fmt.Sprint(f.Urls)
