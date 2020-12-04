@@ -4,6 +4,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"github.com/gitalek/web_searcher/pkg/searcher"
 	"strings"
 )
 
@@ -31,15 +32,17 @@ func (f *urlsFlag) Set(v string) error {
 }
 
 func main() {
+	// setup flags
 	keyword := flag.String("k", "", "Search string")
 	var urls urlsFlag
 	flag.Var(&urls, "urls", "Comma-separated urls list")
 	flag.Parse()
 
-	fmt.Printf("Search string -> %#v\n", *keyword)
-	fmt.Printf("%#v\n", urls.GetUrls())
-
-	for i, url := range urls.GetUrls() {
-		fmt.Printf("at %d: %s\n", i, url)
+	// make search
+	results := searcher.Search(*keyword, urls.GetUrls())
+	// print results
+	fmt.Printf("keyword: %#v\n", *keyword)
+	for url, count := range results {
+		fmt.Printf("at %s -> %d\n", url, count)
 	}
 }
