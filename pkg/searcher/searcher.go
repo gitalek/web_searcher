@@ -2,27 +2,28 @@ package searcher
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
 
-func Search(k string, urls []string) (map[string]int, error) {
-	results := make(map[string]int)
+func Search(k string, urls []string) map[string]int {
+	results := make(map[string]int, len(urls))
 
 	for _, url := range urls {
 		resp, err := http.Get(url)
 		if err != nil {
-			return results, err
+			fmt.Println(err)
 		}
 
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
-			return results, err
+			fmt.Println(err)
 		}
 
 		err = resp.Body.Close()
 		if err != nil {
-			return results, err
+			fmt.Println(err)
 		}
 
 		count := bytes.Count(body, []byte(k))
@@ -31,5 +32,5 @@ func Search(k string, urls []string) (map[string]int, error) {
 		}
 	}
 
-	return results, nil
+	return results
 }
