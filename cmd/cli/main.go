@@ -40,6 +40,7 @@ func main() {
 
 	// make search
 	results := searcher.Search(*keyword, urls.GetUrls())
+
 	// print results
 	fmt.Printf("keyword: %#v\n", *keyword)
 	for url, count := range results {
