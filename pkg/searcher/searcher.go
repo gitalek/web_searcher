@@ -2,10 +2,12 @@ package searcher
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"sync"
+	"time"
 )
 
 func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan int) {
@@ -19,20 +21,34 @@ func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan 
 		return
 	}
 
-	// make request
-	resp, err := http.Get(url)
+	// create request
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+	// create timeout-context and add it to request
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*1000)
+	defer cancel()
+	req = req.WithContext(ctx)
+	// create client and run request
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
 	// read body
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	err = resp.Body.Close()
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	// search
