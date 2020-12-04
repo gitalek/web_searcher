@@ -4,7 +4,9 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"os"
 	"strings"
+	"web_searcher/pkg/searcher"
 )
 
 type urlsFlag struct {
@@ -36,10 +38,15 @@ func main() {
 	flag.Var(&urls, "urls", "Comma-separated urls list")
 	flag.Parse()
 
-	fmt.Printf("Search string -> %#v\n", *keyword)
-	fmt.Printf("%#v\n", urls.GetUrls())
+	results, err := searcher.Search(*keyword, urls.GetUrls())
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
-	for i, url := range urls.GetUrls() {
-		fmt.Printf("at %d: %s\n", i, url)
+	// print results
+	fmt.Printf("keyword: %#v\n", *keyword)
+	for url, count := range results {
+		fmt.Printf("at %s -> %d\n", url, count)
 	}
 }
