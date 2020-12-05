@@ -34,12 +34,15 @@ func (f *urlsFlag) Set(v string) error {
 func main() {
 	// setup flags
 	keyword := flag.String("k", "", "Search string")
+	limit := flag.Int("l", 0, "goroutine limitation")
+	timeout := flag.Int("t", 0, "request timeout in milliseconds")
 	var urls urlsFlag
 	flag.Var(&urls, "urls", "Comma-separated urls list")
 	flag.Parse()
 
 	// make search
-	results := searcher.Search(*keyword, urls.GetUrls())
+	results := searcher.Search(*keyword, urls.GetUrls(), *limit, *timeout)
+
 	// print results
 	fmt.Printf("keyword: %#v\n", *keyword)
 	for url, count := range results {
