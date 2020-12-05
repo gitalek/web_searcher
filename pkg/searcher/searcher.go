@@ -10,8 +10,7 @@ import (
 	"time"
 )
 
-func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan int, t int) {
-	//defer wg.Done()
+func worker(url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{}, t int) {
 	defer func() {
 		<-s
 		wg.Done()
@@ -22,23 +21,19 @@ func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan 
 	}
 
 	// create request
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+	rootCtx := context.Background()
+	req, err := http.NewRequestWithContext(rootCtx, http.MethodGet, url, nil)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	var ctx context.Context
-	// no-timeout case
-	if t < 1 {
-		ctx = context.Background()
-	} else { // timeout case
+	if t > 0 { // timeout case
 		// create timeout-context and add it to request
-		cancelCtx, cancel := context.WithTimeout(context.Background(), time.Millisecond*time.Duration(t))
-		ctx = cancelCtx
+		cancelCtx, cancel := context.WithTimeout(rootCtx, time.Millisecond*time.Duration(t))
 		defer cancel()
+		req = req.WithContext(cancelCtx)
 	}
-	req = req.WithContext(ctx)
 	// create client and run request
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -56,7 +51,6 @@ func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan 
 	err = resp.Body.Close()
 	if err != nil {
 		fmt.Println(err)
-		return
 	}
 
 	// search
@@ -65,7 +59,7 @@ func worker(url string, k string, wg *sync.WaitGroup, storage *MutexMap, s chan 
 	storage.SetValue(url, count)
 }
 
-func Search(k string, urls []string, limit int, timeout int) map[string]int {
+func Search(k string, urls []string, limit, timeout int) map[string]int {
 	initStorage := make(map[string]int, len(urls))
 	storage := NewStorage(initStorage)
 	var wg sync.WaitGroup
@@ -73,9 +67,9 @@ func Search(k string, urls []string, limit int, timeout int) map[string]int {
 	if limit < 1 {
 		limit = len(urls)
 	}
-	semaphore := make(chan int, limit)
+	semaphore := make(chan struct{}, limit)
 	for _, url := range urls {
-		semaphore <- 1
+		semaphore <- struct{}{}
 		wg.Add(1)
 		go worker(url, k, &wg, storage, semaphore, timeout)
 	}
