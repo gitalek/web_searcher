@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func worker(url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{}, t int) {
+func worker(ctx context.Context, url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{}, t int) {
 	defer func() {
 		<-s
 		wg.Done()
@@ -42,6 +42,12 @@ func worker(url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{
 		return
 	}
 
+	select {
+	case <-ctx.Done():
+		return
+	default:
+	}
+
 	// read body
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -59,7 +65,7 @@ func worker(url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{
 	storage.SetValue(url, count)
 }
 
-func Search(k string, urls []string, limit, timeout int) map[string]int {
+func Search(ctx context.Context, k string, urls []string, limit, timeout int) map[string]int {
 	initStorage := make(map[string]int, len(urls))
 	storage := NewStorage(initStorage)
 	var wg sync.WaitGroup
@@ -71,7 +77,7 @@ func Search(k string, urls []string, limit, timeout int) map[string]int {
 	for _, url := range urls {
 		semaphore <- struct{}{}
 		wg.Add(1)
-		go worker(url, k, &wg, storage, semaphore, timeout)
+		go worker(ctx, url, k, &wg, storage, semaphore, timeout)
 	}
 	wg.Wait()
 	return storage.storage

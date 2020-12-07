@@ -1,11 +1,15 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"flag"
 	"fmt"
 	"github.com/gitalek/web_searcher/pkg/searcher"
+	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 )
 
 type urlsFlag struct {
@@ -40,8 +44,22 @@ func main() {
 	flag.Var(&urls, "urls", "Comma-separated urls list")
 	flag.Parse()
 
+	// context
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+	defer func() {
+		signal.Stop(c)
+		cancel()
+	}()
+	go func() {
+		<-c
+		cancel()
+	}()
+
 	// make search
-	results := searcher.Search(*keyword, urls.GetUrls(), *limit, *timeout)
+	results := searcher.Search(ctx, *keyword, urls.GetUrls(), *limit, *timeout)
 
 	// print results
 	fmt.Printf("keyword: %#v\n", *keyword)
