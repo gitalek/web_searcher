@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func worker(url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{}, t int) {
+func worker(ctx context.Context, url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{}, t int) {
 	defer func() {
 		<-s
 		wg.Done()
@@ -21,8 +21,7 @@ func worker(url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{
 	}
 
 	// create request
-	rootCtx := context.Background()
-	req, err := http.NewRequestWithContext(rootCtx, http.MethodGet, url, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -30,9 +29,9 @@ func worker(url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{
 
 	if t > 0 { // timeout case
 		// create timeout-context and add it to request
-		cancelCtx, cancel := context.WithTimeout(rootCtx, time.Millisecond*time.Duration(t))
+		ctx, cancel := context.WithTimeout(ctx, time.Millisecond*time.Duration(t))
 		defer cancel()
-		req = req.WithContext(cancelCtx)
+		req = req.WithContext(ctx)
 	}
 	// create client and run request
 	client := &http.Client{}
@@ -59,7 +58,7 @@ func worker(url, k string, wg *sync.WaitGroup, storage *MutexMap, s chan struct{
 	storage.SetValue(url, count)
 }
 
-func Search(k string, urls []string, limit, timeout int) map[string]int {
+func Search(ctx context.Context, k string, urls []string, limit, timeout int) map[string]int {
 	initStorage := make(map[string]int, len(urls))
 	storage := NewStorage(initStorage)
 	var wg sync.WaitGroup
@@ -71,7 +70,7 @@ func Search(k string, urls []string, limit, timeout int) map[string]int {
 	for _, url := range urls {
 		semaphore <- struct{}{}
 		wg.Add(1)
-		go worker(url, k, &wg, storage, semaphore, timeout)
+		go worker(ctx, url, k, &wg, storage, semaphore, timeout)
 	}
 	wg.Wait()
 	return storage.storage
