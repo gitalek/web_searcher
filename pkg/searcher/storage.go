@@ -18,12 +18,12 @@ func NewStorage(initStorage map[string]int) *MutexMap {
 	}
 }
 
-func (m *MutexMap) GetValue(key string) (int, bool) {
-	m.mu.Lock()
-	defer m.mu.Unlock()
-	val, ok := m.storage[key]
-	return val, ok
-}
+//func (m *MutexMap) GetValue(key string) (int, bool) {
+//	m.mu.Lock()
+//	defer m.mu.Unlock()
+//	val, ok := m.storage[key]
+//	return val, ok
+//}
 
 func (m *MutexMap) SetValue(key string, val int) {
 	m.mu.Lock()

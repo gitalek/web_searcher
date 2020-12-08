@@ -63,6 +63,7 @@ func main() {
 
 	// print results
 	fmt.Printf("keyword: %#v\n", *keyword)
+	fmt.Printf("%#v\n", results)
 	for url, count := range results {
 		fmt.Printf("at %s -> %d\n", url, count)
 	}

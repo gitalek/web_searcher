@@ -15,10 +15,6 @@ func worker(ctx context.Context, url, k string, wg *sync.WaitGroup, storage *Mut
 		<-s
 		wg.Done()
 	}()
-	// do nothing, if key exists
-	if _, ok := storage.GetValue(url); ok {
-		return
-	}
 
 	// create request
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
@@ -66,6 +62,8 @@ func Search(ctx context.Context, k string, urls []string, limit, timeout int) ma
 	if limit < 1 {
 		limit = len(urls)
 	}
+	// remove duplicating items
+	urls = sliceUnique(urls)
 	semaphore := make(chan struct{}, limit)
 	for _, url := range urls {
 		semaphore <- struct{}{}
