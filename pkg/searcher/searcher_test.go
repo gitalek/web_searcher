@@ -3,9 +3,6 @@ package searcher
 import (
 	"context"
 	"github.com/google/go-cmp/cmp"
-	"os"
-	"os/signal"
-	"syscall"
 	"testing"
 )
 
@@ -28,29 +25,17 @@ func TestSearchRealRequest(t *testing.T) {
 
 	// context
 	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
 
 	want := map[string]int{
-		"http://example.com": 2,
-		"http://go.dev/": 0,
-		"http://habr.com/ru/companies/": 1,
-		"http://opennet.ru": 31,
-		"https://example.com": 2,
-		"https://go.dev/": 0,
+		"http://example.com":             2,
+		"http://go.dev/":                 0,
+		"http://habr.com/ru/companies/":  1,
+		"http://opennet.ru":              30,
+		"https://example.com":            2,
+		"https://go.dev/":                0,
 		"https://habr.com/ru/companies/": 1,
-		"https://opennet.ru": 31,
+		"https://opennet.ru":             30,
 	}
-
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
-	defer func() {
-		signal.Stop(c)
-		cancel()
-	}()
-	go func() {
-		<-c
-		cancel()
-	}()
 
 	got := Search(ctx, keyword, urls, limit, timeout)
 
