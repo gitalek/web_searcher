@@ -1,0 +1,443 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=koi8-r">
+   <TITLE>OpenNet без "www" - минималистский вариант портала по открытому ПО, Linux, BSD и Unix системам</TITLE>
+   <meta name="KeyWords" content="статьи программы документация unix linux freebsd solaris bsd информация cisco настройка новости утилиты сеть perl программирование описание администрирование русификация безопасность">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta content="/opennet_icon_128.png" itemprop="image">
+   <link rel="icon" type="image/png" href="/favicon.png">
+   <link href="/opennet_120.png" rel="apple-touch-icon">
+   <link href="/opennet_180.png" rel="apple-touch-icon" sizes="180x180">
+   <link rel="icon" type="image/png" href="/opennet_128.png" sizes="128x128">
+   <link rel="icon" type="image/png" href="/opennet_192tg.png" sizes="192x192">
+
+
+
+   <link rel="alternate" type="application/rss+xml" href="/opennews/opennews_all_utf.rss" title="Главные + мини-новости">
+   <link rel="alternate" type="application/rss+xml" href="/opennews/opennews_6.rss" title="OpenNews RSS: главные новости">
+   <link rel="alternate" type="application/rss+xml" href="/opennews/opennews_mini.rss" title="Mini-News RSS: мини-новости">
+   <link rel="alternate" type="application/rss+xml" href="/opennews/opennews_review.rss" title="Фильтр: События">
+   <link rel="alternate" type="application/rss+xml" href="/opennews/opennews_arts.rss" title="Фильтр: Обзоры статей">
+   <link rel="alternate" type="application/rss+xml" href="/opennews/opennews_sec.rss" title="Фильтр: Проблемы безопасности">
+   <link rel="alternate" type="application/rss+xml" href="/opennews/opennews_prog.rss" title="Фильтр: Новые версии программ">
+   <link rel="search" href="https://www.opennet.ru/opensearch.xml" title="OpenNet.ru search" type="application/opensearchdescription+xml">
+   <script language="JavaScript" src="/ajax_lite2.js"></script>
+   <link rel="stylesheet" href="/opennet_lite3.css" type="text/css">
+</HEAD>
+<style>
+.l_title {
+    font: bold 14pt Arial, Helvetica;
+    text-align: center;
+    border-bottom: 1px solid #b0b190;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
+<BODY BGCOLOR="#E3E4D0">
+<BASE href="https://www.opennet.ru/">
+
+<!--htdig_noindex-->
+<FORM method="get" action="https://www.opennet.ru/search.shtml">
+<aside>
+<div style="width: 100%; text-align: right; font-size: 70%; background: #E9EAD6; margin-bottom:-10px;">
+<script language=JavaScript src="//www.opennet.ru/cgi-bin/opennet/rb2?login_js"></script>
+</div>
+
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%">
+<TR>
+<TD width=300 VALIGN="BOTTOM" BGCOLOR="#E9EAD6" style="background: #E9EAD6 url('/back.gif') repeat-x bottom left">
+<A HREF="https://www.opennet.ru/"><IMG SRC="/opennet2_lite.gif" HEIGHT=60 WIDTH=249 ALT="OpenNET - лёгкая версия" BORDER="0"></A><br>
+</TD>
+<TD WIDTH=100 ALIGN=CENTER BGCOLOR="#E9EAD6" style="background: #E9EAD6 url('/back.gif') repeat-x bottom left">
+
+</TD><TD WIDTH=50% ALIGN=CENTER BGCOLOR="#E9EAD6" style="background: #E9EAD6 url('/back.gif') repeat-x bottom left;padding-bottom:10px;">
+<table width="100%" border=0>
+<tr>
+<td width="22%">
+ <A HREF="./opennews/" class="h"><b>НОВОСТИ</b></A> (<a href="./news/opennet.shtml" class="h">+</a>)
+</td><td width="18%%">
+  <A HREF="./mp/" class="h"><b>КОНТЕНТ</b></A>
+</td><td width="14%">
+  <A HREF="http://wiki.opennet.ru" class="h"><b>WIKI</b></A>
+</td><td width="14%">
+   <A HREF="./man.shtml" class="h"><b>MAN'ы</b></A>
+</td><td width="16%">
+   <A HREF="./forum/" class="h"><b>ФОРУМ</b></A>
+</td><td width="16%">
+<INPUT type=hidden name=exclude value="index|/man.shtml">
+<A HREF="./search.shtml" class="h" onMouseOver="document.getElementById('form12').style.display='block';">Поиск</A>&nbsp;(<A HREF="./keywords/" class="h">теги</A>)
+<INPUT id="form12" style="display: none;"; type="text" size="10" name="words" value="" title='для поиска в google наберите "g фраза"'>
+</td></tr>
+</table>
+
+</TD><TD align=right WIDTH=20% BGCOLOR="#E9EAD6" style="background: #E9EAD6 url('/back.gif') repeat-x bottom left;padding-bottom:5px;">
+
+<a href="https://www.opennet.ru/opennews/opennews_all_utf.rss"><img src="/img/rss.png" height="16" width="16" alt="RSS" title="RSS" border="0"></a>&nbsp;<a href="https://twitter.com/opennetru"><img src="/twitter.png" height="16" width="16" alt="twitter" title="Twitter" border="0"></a>&nbsp;<a href="https://vk.com/opennet"><img src="/img/vkontakte.gif" height="16" width="16" title="ВКонтакте" border="0"></a>&nbsp;<a href="https://zen.yandex.ru/opennet"><img src="/img/zen.gif" height="16" width="16" title="Yandex Zen" border="0"></a>&nbsp;<a href="https://www.facebook.com/OpenNet.News/"><img src="/img/facebook.gif" height="16" width="16" title="Facebook" border="0"></a>&nbsp;<a href="https://telegram.space/opennet_ru"><img src="/img/telegram2.png" height="16" width="16" title="Telegram" border="0"></a>
+</TABLE>
+</aside>
+<div class=hdr_mobile>
+<div style="margin-left: auto; margin-right: auto; width: 100%; height: 70px; border:1px solid #b0b190; min-width: 360px; max-width: 600px; background: #E9EAD6 url('/back.gif') repeat-x bottom left;">
+<div style="float:left; width: 249px; height: 60px; margin-top: 10px;">
+<A HREF="https://www.opennet.ru"><IMG SRC="/opennet2_lite.gif" style="height: 60px; width: 249px; border: 1px;" ALT="OpenNET - лёгкая версия"></A>
+</div>
+<div style="float: left; text-align: center; height: 70px; width: 331px; padding: 5px; margin-left: 10px;">
+<br><small>[ <a href="/opennews/">новости</a>&nbsp;/<a href="/opennews/?full_lines=15&amp;lines=15&amp;mid_lines=00">+++</a> | <a href="/forum/">форум</a> | <a href="http://wiki.opennet.ru">wiki</a> | <a href="/keywords/">теги</a>
+| <a href="https://tlg.today/opennet_ru"><img src="/img/telegram2.png" height="16" width="16" title="Telegram" border="0" style="margin-bottom: -4px;"></a>
+]</small>
+</div>
+</div>
+</div>
+<div style="clear: both;"></div>
+</FORM>
+<!--/htdig_noindex-->
+
+
+<aside>
+<br><br>
+<div style="margin-left: auto; margin-right: auto; width:100%; border:1px solid #b0b190; min-width: 360px; max-width: 1100px; overflow: auto; padding: 5px;">
+
+<div style="float:left; width: 50%; min-width: 300px; padding: 0px;">
+
+<div class="l_title">
+<a href="/opennews/index.shtml">Главные новости</a>
+</div>
+<table class=tlist>
+
+<tr><td><b style='color: #000000;'>-</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54214">Релиз командного интерпретатора Bash 5.1</a> <span class=cnt>(85 +12)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54213">Выпуск CentOS Linux 8.3 (2011) </a> <span class=cnt>(55 +6)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54207">Первый публичный выпуск децентрализованной платформы совместной разработки Radicle</a> <span class=cnt>(106 +15)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >06.12</span>&nbsp;<a href="/opennews/art.shtml?num=54206">Казахстан возобновил попытки перехвата HTTPS-трафика</a> <span class=cnt>(<b style="background: #F9EAD6;">632</b> &ndash;34)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >06.12</span>&nbsp;<a href="/opennews/art.shtml?num=54204">Google открыл Atheris, инструментарий для fuzzing-тестирования кода на языке Python</a> <span class=cnt>(36 +17)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >04.12</span>&nbsp;<a href="/opennews/art.shtml?num=54195">Представлен браузер Beaker 1.0 с P2P-платформой для децентрализованных сайтов</a> <span class=cnt>(112 +27)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >04.12</span>&nbsp;<a href="/opennews/art.shtml?num=54193">Релиз Mesa 20.3.0, свободной реализации OpenGL и Vulkan </a> <span class=cnt>(58 <b style="background: #F9EAD6;">+54</b>)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >03.12</span>&nbsp;<a href="/opennews/art.shtml?num=54191">Доступен WebThings Gateway 1.0, шлюз для умного дома и IoT-устройств </a> <span class=cnt>(64 +1)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >03.12</span>&nbsp;<a href="/opennews/art.shtml?num=54190">Выпуск рабочего стола Budgie 10.5.2</a> <span class=cnt>(85 +14)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >02.12</span>&nbsp;<a href="/opennews/art.shtml?num=54186">GitHub опубликовал статистику за 2020 год</a> <span class=cnt>(135 +31)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >02.12</span>&nbsp;<a href="/opennews/art.shtml?num=54181">Инициатива по поддержке чипа Apple M1 в Linux</a> <span class=cnt>(<b style="background: #F9EAD6;">363</b> <b style="background: #F9EAD6;">+79</b>)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span style="font-weight: bold">01.12</span>&nbsp;<a href="/opennews/art.shtml?num=54172">Релиз OpenZFS 2.0, реализации ZFS для Linux и FreeBSD</a> <span class=cnt>(204 +27)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >30.11</span>&nbsp;<a href="/opennews/art.shtml?num=54171">Проект Ruffle развивает эмулятор Flash Player, написанный на Rust</a> <span class=cnt>(211 +32)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >30.11</span>&nbsp;<a href="/opennews/art.shtml?num=54168">Инициатива GNOME Circle для разработчиков программ на базе платформы GNOME</a> <span class=cnt>(106 +13)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >30.11</span>&nbsp;<a href="/opennews/art.shtml?num=54166">Файловая система DwarFS, обеспечивающая очень высокий уровень сжатия</a> <span class=cnt>(76 +51)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >29.11</span>&nbsp;<a href="/opennews/art.shtml?num=54163">Доступен ELKS 0.4, вариант ядра Linux для старых 16-разрядных процессоров Intel</a> <span class=cnt>(144 +44)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >28.11</span>&nbsp;<a href="/opennews/art.shtml?num=54157">Основатель Void Linux убрал ограничение на использование своих разработок</a> <span class=cnt>(62 <b style="background: #F9EAD6;">+56</b>)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >28.11</span>&nbsp;<a href="/opennews/art.shtml?num=54155">Выпуск системного менеджера systemd 247</a> <span class=cnt>(<b style="background: #F9EAD6;">231</b> &ndash;13)</span></td></tr>
+
+<tr><td><div style="width: 100%; text-align: right; font-size: 70%;">
+<a href="/opennews/?full_lines=15&lines=15&mid_lines=00">раскрыть всё</a>
+| <a href="/opennews/main.shtml?skip=18&news=open&template=13new2&lines=20&mid_lines=0">далее &gt;&gt;</a></div></td></td>
+</table>
+
+</div>
+<div style="float:left; width: 50%; min-width: 300px; padding: 0px;">
+
+<div class="l_title">
+<a href="/opennews/mini.shtml">Мини-новости</a>
+</div>
+<table class=tlist>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54217">Компания Valve выпустила Proton 5.13-3, пакет для запуска Windows-игр в Linux </a> <span class=cnt>(16 +4)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54216">Depix, утилита для воссоздания пикселизированных паролей на скриншотах</a> <span class=cnt>(19 +13)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54215">Стабильный релиз кроссплатформного браузера Vivaldi 3.5</a> <span class=cnt>(45 +1)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54211">Компания Mozilla опубликовала финансовый отчёт за 2019 год</a> <span class=cnt>(<b style="background: #F9EAD6;">128</b> +11)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54210">Третий альфа-выпуск инсталлятора Debian 11 "Bullseye" </a> <span class=cnt>(59 +12)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54209">Выпуск xine 1.2.11</a> <span class=cnt>(43 +17)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54208">cGit-UI - web-интерфейс для Git-репозиториев</a> <span class=cnt>(<b style="background: #F9EAD6;">65</b> +15)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >06.12</span>&nbsp;<a href="/opennews/art.shtml?num=54203">Выпуск aqtinstall 0.10, альтернативного установщика Qt</a> <span class=cnt>(60 +16)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54201">Обновление Debian 10.7</a> <span class=cnt>(<b style="background: #F9EAD6;">139</b> <b style="background: #F9EAD6;">+27</b>)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54200">Релиз мета-дистрибутива T2 SDE 20.10</a> <span class=cnt>(38 <b style="background: #F9EAD6;">+22</b>)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54199">Continent - VPN клиент/сервер и зашифрованный файл-контейнер</a> <span class=cnt>(57 +4)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54198">Выпуск пакетного менеджера NPM 7.1. Очередные вредоносные пакеты в репозитории NPM</a> <span class=cnt>(61 &ndash;2)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54197">Кандидат в релизы Wine 6.0 и выпуск DXVK 1.7.3</a> <span class=cnt>(48 <b style="background: #F9EAD6;">+26</b>)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >04.12</span>&nbsp;<a href="/opennews/art.shtml?num=54196">Декабрьское обновление дистрибутива Raspberry Pi OS </a> <span class=cnt>(<b style="background: #F9EAD6;">65</b> +20)</span></td></tr>
+
+<tr><td><div style="width: 100%; text-align: right; font-size: 70%;"><a href="/opennews/mini.shtml?skip=14&mid_lines=00">далее &gt;&gt;</a></div></td></td>
+</table>
+<br>
+<div class="l_title">
+<a href="/tips/sml/#last">Советы</a>
+</div>
+<table class="tlist">
+
+<!--htdig_noindex-->
+
+<tr><td><b>-</b> 30.11 <A HREF="/tips/3166_bitmessage_imap_smtp_docker.shtml">Используем BitMessage через IMAP/SMTP</A></td></tr>
+<tr><td><b>-</b> 08.11 <A HREF="/tips/3165_pulseaudio_sound_ubuntu_bluez.shtml">Решение проблемы с исчезновением устройств вывода звука в Ubuntu 20.04</A></td></tr>
+<tr><td><b>-</b> 13.09 <A HREF="/tips/3163_audio_jack_sound_guitarix_rakarrack_optimization_latency_tune_cpufreq.shtml">Гитара в Debian и борьба с XRUN</A></td></tr>
+<tr><td><b>-</b> 11.09 <A HREF="/tips/3162_centos_vps_install.shtml">Первоначальная настройка VPS сервера на базе CentOS 8</A></td></tr>
+<tr><td><b>-</b> 18.08 <A HREF="/tips/3158_firefox_chrome_translate.shtml">Установка в Firefox официального расширения Google Translate, поставляемого для Chrome</A></td></tr>
+
+<!--/htdig_noindex-->
+
+
+<tr><td><div style="width: 100%; text-align: right; font-size: 70%;"><a href="/tips/sml/?skip=5#last">далее &gt;&gt;</a></div></td></td>
+</table>
+
+
+</div>
+</div>
+
+</aside>
+
+<div class=hdr_mobile>
+<div class="l_title">
+<a href="/opennews/?full_lines=15&amp;lines=15&amp;mid_lines=00">Последние новости</a>
+</div>
+<table class=tlist>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54217">Компания Valve выпустила Proton 5.13-3, пакет для запуска Windows-игр в Linux </a> <span class=cnt>(16 +4)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54216">Depix, утилита для воссоздания пикселизированных паролей на скриншотах</a> <span class=cnt>(19 +13)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54214">Релиз командного интерпретатора Bash 5.1</a> <span class=cnt>(85 +12)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54215">Стабильный релиз кроссплатформного браузера Vivaldi 3.5</a> <span class=cnt>(45 +1)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >08.12</span>&nbsp;<a href="/opennews/art.shtml?num=54213">Выпуск CentOS Linux 8.3 (2011) </a> <span class=cnt>(55 +6)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54211">Компания Mozilla опубликовала финансовый отчёт за 2019 год</a> <span class=cnt>(128 +11)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54210">Третий альфа-выпуск инсталлятора Debian 11 "Bullseye" </a> <span class=cnt>(59 +12)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54209">Выпуск xine 1.2.11</a> <span class=cnt>(43 +17)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54208">cGit-UI - web-интерфейс для Git-репозиториев</a> <span class=cnt>(65 +15)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >07.12</span>&nbsp;<a href="/opennews/art.shtml?num=54207">Первый публичный выпуск децентрализованной платформы совместной разработки Radicle</a> <span class=cnt>(106 +15)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >06.12</span>&nbsp;<a href="/opennews/art.shtml?num=54206">Казахстан возобновил попытки перехвата HTTPS-трафика</a> <span class=cnt>(<b style="background: #F9EAD6;">632</b> <b style="background: #F9EAD6;">&ndash;34</b>)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >06.12</span>&nbsp;<a href="/opennews/art.shtml?num=54204">Google открыл Atheris, инструментарий для fuzzing-тестирования кода на языке Python</a> <span class=cnt>(36 +17)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >06.12</span>&nbsp;<a href="/opennews/art.shtml?num=54203">Выпуск aqtinstall 0.10, альтернативного установщика Qt</a> <span class=cnt>(60 +16)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54201">Обновление Debian 10.7</a> <span class=cnt>(139 +27)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54200">Релиз мета-дистрибутива T2 SDE 20.10</a> <span class=cnt>(38 +22)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54199">Continent - VPN клиент/сервер и зашифрованный файл-контейнер</a> <span class=cnt>(57 +4)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54198">Выпуск пакетного менеджера NPM 7.1. Очередные вредоносные пакеты в репозитории NPM</a> <span class=cnt>(61 &ndash;2)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >05.12</span>&nbsp;<a href="/opennews/art.shtml?num=54197">Кандидат в релизы Wine 6.0 и выпуск DXVK 1.7.3</a> <span class=cnt>(48 +26)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >04.12</span>&nbsp;<a href="/opennews/art.shtml?num=54196">Декабрьское обновление дистрибутива Raspberry Pi OS </a> <span class=cnt>(65 +20)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >04.12</span>&nbsp;<a href="/opennews/art.shtml?num=54195">Представлен браузер Beaker 1.0 с P2P-платформой для децентрализованных сайтов</a> <span class=cnt>(112 +27)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >04.12</span>&nbsp;<a href="/opennews/art.shtml?num=54193">Релиз Mesa 20.3.0, свободной реализации OpenGL и Vulkan </a> <span class=cnt>(58 <b style="background: #F9EAD6;">+54</b>)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >03.12</span>&nbsp;<a href="/opennews/art.shtml?num=54192">Релиз дистрибутива Manjaro Linux 20.2</a> <span class=cnt>(<b style="background: #F9EAD6;">230</b> +9)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >03.12</span>&nbsp;<a href="/opennews/art.shtml?num=54191">Доступен WebThings Gateway 1.0, шлюз для умного дома и IoT-устройств </a> <span class=cnt>(64 +1)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >03.12</span>&nbsp;<a href="/opennews/art.shtml?num=54184">Выпуск СУБД SQLite 3.34.0</a> <span class=cnt>(147 +25)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >03.12</span>&nbsp;<a href="/opennews/art.shtml?num=54190">Выпуск рабочего стола Budgie 10.5.2</a> <span class=cnt>(85 +14)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >03.12</span>&nbsp;<a href="/opennews/art.shtml?num=54188">Экспериментальный API для редактирования about:config из WebExtensions</a> <span class=cnt>(96 &ndash;4)</span></td></tr>
+<tr><td><div class=tdelim></div></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >02.12</span>&nbsp;<a href="/opennews/art.shtml?num=54186">GitHub опубликовал статистику за 2020 год</a> <span class=cnt>(135 +31)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >02.12</span>&nbsp;<a href="/opennews/art.shtml?num=54183">Доступен серверный дистрибутив NethServer 7.9</a> <span class=cnt>(49 +10)</span></td></tr>
+<tr><td><b style='color: #A0A0A0;padding-right: 1.3pt;'>&middot;</b> <span  >02.12</span>&nbsp;<a href="/opennews/art.shtml?num=54182">Уязвимости в IPv6-стеке FreeBSD</a> <span class=cnt>(100 +8)</span></td></tr>
+<tr><td><b style='color: #000000;'>-</b> <span  >02.12</span>&nbsp;<a href="/opennews/art.shtml?num=54181">Инициатива по поддержке чипа Apple M1 в Linux</a> <span class=cnt>(<b style="background: #F9EAD6;">363</b> <b style="background: #F9EAD6;">+79</b>)</span></td></tr>
+
+</table>
+<div style="margin-left: auto; margin-right: auto; border-top: 0px solid #b0b190; width: 100%; max-width: 1100px; text-align: right; font-size: 70%;">
+<a href="/opennews/?full_lines=15&lines=15&mid_lines=00">раскрыть всё</a>
+| <a href="/opennews/index.shtml?skip=30&mid_lines=00">далее &gt;&gt;</a></div>
+
+<br><br>
+<div class="l_title">
+<a href="/tips/sml/#last">Последние советы</a>
+</div>
+<table class="tlist">
+
+<!--htdig_noindex-->
+
+<tr><td><b>-</b> 30.11 <A HREF="/tips/3166_bitmessage_imap_smtp_docker.shtml">Используем BitMessage через IMAP/SMTP</A></td></tr>
+<tr><td><b>-</b> 08.11 <A HREF="/tips/3165_pulseaudio_sound_ubuntu_bluez.shtml">Решение проблемы с исчезновением устройств вывода звука в Ubuntu 20.04</A></td></tr>
+<tr><td><b>-</b> 13.09 <A HREF="/tips/3163_audio_jack_sound_guitarix_rakarrack_optimization_latency_tune_cpufreq.shtml">Гитара в Debian и борьба с XRUN</A></td></tr>
+<tr><td><b>-</b> 11.09 <A HREF="/tips/3162_centos_vps_install.shtml">Первоначальная настройка VPS сервера на базе CentOS 8</A></td></tr>
+<tr><td><b>-</b> 18.08 <A HREF="/tips/3158_firefox_chrome_translate.shtml">Установка в Firefox официального расширения Google Translate, поставляемого для Chrome</A></td></tr>
+
+<!--/htdig_noindex-->
+
+
+<tr><td><div style="width: 100%; text-align: right; font-size: 70%;"><a href="/tips/sml/?skip=5#last">далее &gt;&gt;</a></div></td></td>
+</table>
+</div>
+
+
+
+<div style="margin-left: auto; margin-right: auto; border-top: 0px solid #b0b190; width: 100%; max-width: 1100px; text-align: right; font-size: 70%;"><a href="/opennews/opennews_all.rss">RSS</a> | <a href="/add.shtml">Добавить</a> <a href="/announce_news.shtml?c=f">новость</a>/<a href="/announce_tips.shtml?cache=off">заметку</a></div>
+<div style="clear: both;"></div>
+
+
+
+<br><br>
+
+
+<div style="margin-left: auto; margin-right: auto; width:100%; min-width: 360px; max-width: 1110px; padding: 0px;">
+
+
+<div id="tabs_top" style="width: 100%; min-width: 360px; padding: 0px;">
+<div class="tab-selected" id="tab1" onclick="tabClick(1)">Разделы</div>
+<div class="tab" id="tab2" onclick="tabClick(2)">Важное</div>
+<div class="tab" id="tab3" onclick="tabClick(3)">Форум</div>
+<div class="tab" id="tab4" onclick="tabClick(4)">Новые версии</div>
+<div class="tab" id="tab5" onclick="tabClick(5)">Безопасность</div>
+<div class="tab" id="tab6" onclick="tabClick(6)">События</div>
+<div class="tab" id="tab7" onclick="tabClick(7)">Обзоры</div>
+<div class="tab-null">&nbsp;</div>
+</div>
+
+<div id="top_news">
+<div style="padding: 5px 0px 5px 0px; border-left: 1px solid #b0b190; border-right: 1px solid #b0b190; border-bottom: 1px solid #b0b190;">
+<div style="float: left; margin: 15px;">
+<FORM method="get" action="/cgi-bin/opennet/jump.cgi">
+    <SELECT name="to" onChange="submit()" style="font-size: 10pt; width: 250; background-color: #C7CBB1; color: #0000AD;">
+<OPTION value="" selected>Быстрая навигация по сайту</OPTION>
+	<option value="/opennews/">__________________ НОВОСТИ:</option>
+<option value="/opennews/">Новости OpenNews</option>
+<option value="/news/opennet.shtml">Все новости OpenNet в одном месте</option>
+<option value="/lastsoft/">LastSoft - Свежий софт</option>
+<option value="/security/">Сообщения о проблемах безопасности</option>
+<option value="/news/grab.shtml">Новости с других сайтов</option>
+	<option value="/cgi-bin/openforum/vsluhboard.cgi">__________________ ОБЩЕНИЕ:</option>
+<option value="/cgi-bin/openforum/vsluhboard.cgi">Форум</option>
+    <option value="/prog/sml">__________________ КАТАЛОГИ:</option>
+<option value="/prog/sml/">Каталог программного обеспечения</option>
+<option value="/links/sml/">Каталог ссылок на unix ресурсы</option>
+<option value="/filebase.shtml">Каталог тематических статей</option>
+<option value="/docs/">Архив документации</option>
+<option value="/tips/sml/">Советы, заметки</option>
+<option value="/man.shtml">MAN - Системные руководства</option>
+	<option value="/mp/">_______________ МИНИ-ПОРТАЛЫ:</option>
+<option value="/mp/cisco">CISCO.opennet.ru</option>
+<option value="/mp/bsd">BSD.opennet.ru</option>
+<option value="/mp/linux">LINUX.opennet.ru</option>
+<option value="/mp/solaris">SOLARIS.opennet.ru</option>
+<option value="/mp/web">WEB.opennet.ru - web-технологии</option>
+<option value="/mp/security">SECURITY.opennet.ru</option>
+<option value="/palm.shtml">PALM.opennet.ru - мобильные устройства</option>
+<option value="/mp/admin/">Администратору</option>
+<option value="/mp/programmer/">Разработчику</option>
+<option value="/mp/user/">Пользователю</option>
+<option value="/mp/">Другие....</option>
+	<option value="">__________________ РАЗНОЕ:</option>
+<option value="/announce_prog.shtml">Добавить новость, ссылку, статью</option>
+<option value="/ipcalc.shtml">IP-калькулятор</option>
+	</SELECT>&nbsp;<input type="submit" value="&gt;" style="background-color: #E3E4D0; color: #0000AD; border: 0;">
+</form>
+</div>
+
+<div style="float: left; margin: 15px;">
+<form method="get" action="/cgi-bin/opennet/jump.cgi">
+<select name="to" onChange="submit()" style="font-size: 10pt; width: 250; background-color: #C7CBB1; color: #0000AD;">
+<option value="" selected>Тематическая выборка
+<option value="admin">Администратору
+ <option value="mail">&nbsp;&nbsp;|-- Почта
+ <option value="dns">&nbsp;&nbsp;|-- DNS
+ <option value="apache">&nbsp;&nbsp;|-- HTTP-серверы
+ <option value="ftp">&nbsp;&nbsp;|-- FTP, BitTorrent
+ <option value="samba">&nbsp;&nbsp;|-- Samba, Windows
+ <option value="auth">&nbsp;&nbsp;|-- LDAP, Radius, Tacacs
+ <option value="proxy">&nbsp;&nbsp;|-- Proxy, squid, socks
+<option value="">
+ <option value="route">&nbsp;&nbsp;|-- Маршрутизация, NAT
+ <option value="firewall">&nbsp;&nbsp;|-- Firewall, Пакетные фильтры
+ <option value="voip">&nbsp;&nbsp;|-- VoIP, Asterisk
+ <option value="vpn">&nbsp;&nbsp;|-- VPN, PPPoE PPTP, IPSec
+ <option value="crypt">&nbsp;&nbsp;|-- Шифрование, SSH, SSL
+<option value="">
+ <option value="tune">&nbsp;&nbsp;|-- Оптимизация, тюнинг
+ <option value="cluster">&nbsp;&nbsp;|-- Кластеры
+ <option value="virtual">&nbsp;&nbsp;|-- Виртуализация
+ <option value="traffic">&nbsp;&nbsp;|-- Учет и ограничение трафика
+ <option value="monitoring">&nbsp;&nbsp;|-- Мониторинг, диагностика
+ <option value="security">&nbsp;&nbsp;|-- Безопасность
+<option value="">
+ <option value="fs">&nbsp;&nbsp;|-- Файловые системы
+ <option value="backup">&nbsp;&nbsp;|-- Резервное копирование
+ <option value="hardware">&nbsp;&nbsp;|-- Аппаратура, Железо
+ <option value="kernel">&nbsp;&nbsp;|-- Ядро ОС (kernel)
+ <option value="quota">&nbsp;&nbsp;|-- Квоты, ACL, ограничения
+<option value="">
+<option value="user">Пользователю
+ <option value="rus">&nbsp;&nbsp;|-- Русификация
+ <option value="x">&nbsp;&nbsp;|-- X Window
+ <option value="multimedia">&nbsp;&nbsp;|-- Мультимедиа, звук, видео
+ <option value="dialup">&nbsp;&nbsp;|-- Dial-up, ISP, PPP
+ <option value="mobile">&nbsp;&nbsp;|-- Мобильные устройства и SoC
+<option value="">
+<option value="programmer">Программисту
+ <option value="web">&nbsp;&nbsp;|-- Web-технологии
+ <option value="shell">&nbsp;&nbsp;|-- Shell-скрипты
+ <option value="perl">&nbsp;&nbsp;|-- Perl
+ <option value="python">&nbsp;&nbsp;|-- Python
+ <option value="gcc">&nbsp;&nbsp;|-- GCC, Си/Си++
+ <option value="php">&nbsp;&nbsp;|-- PHP
+ <option value="java">&nbsp;&nbsp;|-- Java, JSP
+ <option value="javascript">&nbsp;&nbsp;|-- JavaScript
+ <option value="html">&nbsp;&nbsp;|-- HTML, CSS
+ <option value="sql">&nbsp;&nbsp;|-- MySQL, PostgreSQL, NoSQL
+ <option value="ai">&nbsp;&nbsp;|-- Машинное обучение, AI
+<option value="">
+<option value="linux">Linux
+<option value="bsd">FreeBSD, OpenBSD, NetBSD
+<option value="solaris">Solaris
+<option value="cisco">Cisco, маршрутизаторы
+<option value="android">Android
+
+</select>&nbsp;<input type="submit" value="&gt;" style="background-color: #E3E4D0; color: #0000AD; border: 0;">
+</form>
+</div>
+
+<div style="float: left; margin: 15px;">
+<FORM method="get" action="/cgi-bin/opennet/jump.cgi">
+<A HREF="/search.shtml">Поиск</A>:&nbsp;<INPUT type="text" size="10" name="words" value="">
+<select name="next" style="font-size: 85%; width: 70; background-color: #C7CBB1; color: #0000AD;">
+<option value="site" selected>Сайт</option>
+<option value="keys">Ключи</option>
+<option value="forum">Форум</option>
+<option value="man">MAN-ы</option>
+</select>
+<input type="submit" value="&gt;&gt;" style="background-color: #C7CBB1; color: #0000AD; border: 0;">
+</form>
+
+</div>
+
+<div style="clear: both;"></div>
+
+<small><a href="https://www.opennet.ru">Главная страница (c www.)</a>  |  <a href="/news/opennet.shtml">Новости по разделам</a>  |  <a href="/news/grab.shtml">Новости с других сайтов</a>  |  <a href="/lastsoft/">Последние версии ПО</a> | <a href="/forum/">Форум</a> | <a href="/mp/">Контент</a>
+<a href="https://www.opennet.ru/opennews/opennews_all.rss"><img src="/img/rss.png" height="16" width="16" alt="RSS" title="RSS" border="0"></a>
+&nbsp;<a href="https://twitter.com/opennetru"><img src="/twitter.png" height="16" width="16" alt="twitter" title="Twitter" border="0"></a> &nbsp;<a href="https://vk.com/opennet"><img src="/img/vkontakte.gif" height="16" width="16" title="ВКонтакте" border="0"></a>
+&nbsp;<a href="https://telegram.space/opennet_ru"><img src="/img/telegram2.png" height="16" width="16" title="Telegram" border="0"></a>
+&nbsp;<a href="https://zen.yandex.ru/opennet"><img src="/img/zen.gif" height="16" width="16" title="Yandex Zen" border="0"></a>
+&nbsp;<a href="https://www.facebook.com/OpenNet.News/"><img src="/img/facebook.gif" height="16" width="16" title="Facebook" border="0"></a>
+</small>
+
+
+</div>
+</div>
+</div>
+
+
+
+<div style="clear: both;"></div>
+<br><br><br>
+
+</div>
+
+<div style="float: right;">
+<small>Created 1996-2020 by <B><A HREF="/contact.shtml">Maxim Chirkov</A></B>
+[ <A HREF="/add.shtml">Добавить</A> | <A HREF="https://www.opennet.ru/donate.shtml" style="color: #C00000;">Поддержать</A> | <A HREF="/banners2.shtml">Вебмастеру</A> ]</small>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-123449-1', 'auto');
+    ga('send', 'pageview');
+</script>
+</div>
+
+<br>
+
+</BODY>
+</HTML>
