@@ -1,4 +1,4 @@
-name: Testing
+name: ci
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  build:
-    runs-on: ubuntu-16.04
+  test:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         go: [ '1.15' ]
@@ -19,3 +19,12 @@ jobs:
       - uses: actions/setup-go@v2
       - run: |
           go test ./... -v -cover
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
