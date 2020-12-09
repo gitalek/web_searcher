@@ -8,6 +8,17 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [ '1.15' ]
+    name: Go ${{ matrix.go }} sample
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+      - run: |
+          go build -o /dev/null ./cmd/cli/main.go
   test:
     runs-on: ubuntu-latest
     strategy:
