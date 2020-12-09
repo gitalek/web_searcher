@@ -29,7 +29,10 @@ func TestSearchWithTestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 		mux.HandleFunc(fmt.Sprintf("/%s/", filename), func(res http.ResponseWriter, req *http.Request) {
-			res.Write(content)
+			_, err := res.Write(content)
+			if err != nil {
+				return
+			}
 		})
 	}
 	ts := httptest.NewServer(mux)
