@@ -29,9 +29,7 @@ func (f *urlsFlag) Set(v string) error {
 		return errors.New("urls flag has already been set")
 	}
 	urls := strings.Split(v, ",")
-	for _, item := range urls {
-		f.Urls = append(f.Urls, item)
-	}
+	f.Urls = append(f.Urls, urls...)
 	return nil
 }
 
