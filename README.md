@@ -1,3 +1,7 @@
+![build](https://github.com/gitalek/web_searcher/workflows/build/badge.svg)
+![test](https://github.com/gitalek/web_searcher/workflows/test/badge.svg)
+![lint](https://github.com/gitalek/web_searcher/workflows/lint/badge.svg)
+
 # web_searcher
 
 ```bash
