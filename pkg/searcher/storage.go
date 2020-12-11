@@ -2,19 +2,22 @@ package searcher
 
 import "sync"
 
-type MutexMap struct {
-	storage map[string]int
-	mu sync.Mutex
+type UrlResult struct {
+	count int
+	err   error
 }
 
-func NewStorage(initStorage map[string]int) *MutexMap {
+type MutexMap struct {
+	storage map[string]*UrlResult
+	mu      sync.Mutex
+}
+
+func NewStorage(initStorage map[string]*UrlResult) *MutexMap {
 	if initStorage != nil {
-		return &MutexMap{
-			storage: initStorage,
-		}
+		return &MutexMap{storage: initStorage}
 	}
 	return &MutexMap{
-		storage: make(map[string]int),
+		storage: make(map[string]*UrlResult),
 	}
 }
 
@@ -25,8 +28,13 @@ func NewStorage(initStorage map[string]int) *MutexMap {
 //	return val, ok
 //}
 
-func (m *MutexMap) SetValue(key string, val int) {
+func (m *MutexMap) SetValue(key string, val int, err error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	m.storage[key] = val
+	m.storage[key] = &(UrlResult{})
+	if err != nil {
+		m.storage[key].err = err
+	} else {
+		m.storage[key].count = val
+	}
 }
