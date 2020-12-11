@@ -52,7 +52,6 @@ func worker(ctx context.Context, url, k string, wg *sync.WaitGroup, storage *Mut
 	count := bytes.Count(body, []byte(k))
 	// write to shared map
 	storage.SetValue(url, count, nil)
-	return
 }
 
 func Search(ctx context.Context, k string, urls []string, limit, timeout int) map[string]*UrlResult {
