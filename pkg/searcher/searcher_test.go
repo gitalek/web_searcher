@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 )
 
 var sites = []string{
@@ -77,7 +78,7 @@ func TestSearchWithTestServer(t *testing.T) {
 			break
 		}
 		if gotRes.err != nil {
-			t.Errorf("Objects ERRORS don't match at site %s: got -> %s, should be %v\n", site, gotRes.err.Error(), nil)
+			t.Errorf("Objects ERRORS don't match at site %s: got -> %s, should be -> %v\n", site, gotRes.err.Error(), nil)
 			t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
 			break
 		}
@@ -85,7 +86,6 @@ func TestSearchWithTestServer(t *testing.T) {
 }
 
 func TestSearchNewRequestError(t *testing.T) {
-	//t.Skip("skipped")
 	var urls []string
 	mux := http.NewServeMux()
 	ts := httptest.NewServer(mux)
@@ -113,8 +113,6 @@ func TestSearchNewRequestError(t *testing.T) {
 	}
 
 	got := Search(ctx, keyword, urls, limit, timeout)
-	//fmt.Printf("%#v\n", got[urls[0]])
-	//fmt.Printf("%#v\n", got)
 
 	if len(got) != len(want) {
 		t.Fatalf("Wrong object received:\ngot:\t%v\nwant:\t%v", got, want)
@@ -135,22 +133,98 @@ func TestSearchNewRequestError(t *testing.T) {
 			if gotRes.err == nil {
 				continue
 			}
-			t.Errorf("Objects ERRORS don't match at site %s: got ERROR -> %s, should be %v\n", site, gotRes.err, nil)
+			t.Errorf("Objects ERRORS don't match at site %s: got ERROR -> %s, should be -> %v\n", site, gotRes.err, nil)
 			t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
 			break
 		}
 		if wantRes.err != nil {
 			if gotRes.err == nil {
-				t.Errorf("Objects ERRORS don't match at site %s: got nil -> %s, should be %s\n", site, gotRes.err, wantRes.err)
+				t.Errorf("Objects ERRORS don't match at site %s: got nil -> %s, should be -> %s\n", site, gotRes.err, wantRes.err)
 				t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
 				break
 			}
 			if gotRes.err.Error() == wantRes.err.Error() {
 				continue
 			}
-			t.Errorf("Objects ERRORS don't match at site %s: got ERROR -> %s, should be %s\n", site, gotRes.err.Error(), wantRes.err.Error())
+			t.Errorf("Objects ERRORS don't match at site %s: got ERROR -> %s, should be -> %s\n", site, gotRes.err.Error(), wantRes.err.Error())
 			t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
 			break
 		}
 	}
+}
+
+func TestSearchDoRequestError(t *testing.T) {
+	var urls []string
+
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// timeout case
+		time.Sleep(2 * time.Millisecond)
+		fmt.Fprintln(w, "site content")
+	}))
+	defer ts.Close()
+	for _, filename := range sites {
+		urls = append(urls, fmt.Sprintf("%s/%s/", ts.URL, filename))
+	}
+	keyword := "background"
+	// timeout case
+	timeout := 1
+	var limit int
+	// context
+	ctx := context.Background()
+
+	want := map[string]*UrlResult{
+		helper(ts.URL, "/http_example_com.html/"):  &(UrlResult{count: 0, err: fmt.Errorf("Get \"%s\": context deadline exceeded", helper(ts.URL, "/http_example_com.html/"))}),
+		helper(ts.URL, "/http_go_dev.html/"):  &(UrlResult{count: 0, err: fmt.Errorf("Get \"%s\": context deadline exceeded", helper(ts.URL, "/http_go_dev.html/"))}),
+		helper(ts.URL, "/http_habr.html/"):  &(UrlResult{count: 0, err: fmt.Errorf("Get \"%s\": context deadline exceeded", helper(ts.URL, "/http_habr.html/"))}),
+		helper(ts.URL, "/http_opennet_ru.html/"):  &(UrlResult{count: 0, err: fmt.Errorf("Get \"%s\": context deadline exceeded", helper(ts.URL, "/http_opennet_ru.html/"))}),
+		helper(ts.URL, "/https_example_com.html/"):  &(UrlResult{count: 0, err: fmt.Errorf("Get \"%s\": context deadline exceeded", helper(ts.URL, "/https_example_com.html/"))}),
+		helper(ts.URL, "/https_go_dev.html/"):  &(UrlResult{count: 0, err: fmt.Errorf("Get \"%s\": context deadline exceeded", helper(ts.URL, "/https_go_dev.html/"))}),
+		helper(ts.URL, "/https_habr.html/"):  &(UrlResult{count: 0, err: fmt.Errorf("Get \"%s\": context deadline exceeded", helper(ts.URL, "/https_habr.html/"))}),
+		helper(ts.URL, "/https_opennet_ru.html/"):  &(UrlResult{count: 0, err: fmt.Errorf("Get \"%s\": context deadline exceeded", helper(ts.URL, "/https_opennet_ru.html/"))}),
+	}
+
+	got := Search(ctx, keyword, urls, limit, timeout)
+
+	if len(got) != len(want) {
+		t.Fatalf("Wrong object received:\ngot:\t%v\nwant:\t%v", got, want)
+	}
+	for site, wantRes := range want {
+		gotRes, ok := got[site]
+		if !ok {
+			t.Errorf("Got object has no \"%s\" site\n", site)
+			t.Errorf("Wrong object received:\ngot:\t%#v\nwant:\t%#v", got, want)
+			break
+		}
+		if gotRes.count != wantRes.count {
+			t.Errorf("Objects don't match at site %s: got -> %d, want -> %d\n", site, gotRes.count, wantRes.count)
+			t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
+			break
+		}
+		if wantRes.err == nil {
+			if gotRes.err == nil {
+				continue
+			}
+			t.Errorf("Objects ERRORS don't match at site %s: got ERROR -> %s, should be -> %v\n", site, gotRes.err, nil)
+			t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
+			break
+		}
+		if wantRes.err != nil {
+			if gotRes.err == nil {
+				t.Errorf("Objects ERRORS don't match at site %s: got nil -> %s, should be -> %s\n", site, gotRes.err, wantRes.err)
+				t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
+				break
+			}
+			if gotRes.err.Error() == wantRes.err.Error() {
+				continue
+			}
+			t.Errorf("Objects ERRORS don't match at site %s: got ERROR -> %s, should be -> %s\n", site, gotRes.err.Error(), wantRes.err.Error())
+			t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
+			break
+		}
+	}
+
+}
+
+func helper(url string, suffix string) string {
+	return fmt.Sprintf("%s%s", url, suffix)
 }
