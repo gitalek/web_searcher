@@ -222,9 +222,78 @@ func TestSearchDoRequestError(t *testing.T) {
 			break
 		}
 	}
-
 }
 
 func helper(url string, suffix string) string {
 	return fmt.Sprintf("%s%s", url, suffix)
+}
+
+func TestSearchReadBodyError(t *testing.T) {
+	var urls []string
+
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Length", "1")
+	}))
+	defer ts.Close()
+	for _, filename := range sites {
+		urls = append(urls, fmt.Sprintf("%s/%s/", ts.URL, filename))
+	}
+	keyword := "background"
+	// timeout case
+	timeout := 2000
+	var limit int
+	// context
+	ctx := context.Background()
+
+	wantErr := errors.New("unexpected EOF")
+	want := map[string]*UrlResult{
+		helper(ts.URL, "/http_example_com.html/"):  &(UrlResult{count: 0, err: wantErr}),
+		helper(ts.URL, "/http_go_dev.html/"):  &(UrlResult{count: 0, err: wantErr}),
+		helper(ts.URL, "/http_habr.html/"):  &(UrlResult{count: 0, err: wantErr}),
+		helper(ts.URL, "/http_opennet_ru.html/"):  &(UrlResult{count: 0, err: wantErr}),
+		helper(ts.URL, "/https_example_com.html/"):  &(UrlResult{count: 0, err: wantErr}),
+		helper(ts.URL, "/https_go_dev.html/"):  &(UrlResult{count: 0, err: wantErr}),
+		helper(ts.URL, "/https_habr.html/"):  &(UrlResult{count: 0, err: wantErr}),
+		helper(ts.URL, "/https_opennet_ru.html/"):  &(UrlResult{count: 0, err: wantErr}),
+	}
+
+	got := Search(ctx, keyword, urls, limit, timeout)
+
+	if len(got) != len(want) {
+		t.Fatalf("Wrong object received:\ngot:\t%v\nwant:\t%v", got, want)
+	}
+	for site, wantRes := range want {
+		gotRes, ok := got[site]
+		if !ok {
+			t.Errorf("Got object has no \"%s\" site\n", site)
+			t.Errorf("Wrong object received:\ngot:\t%#v\nwant:\t%#v", got, want)
+			break
+		}
+		if gotRes.count != wantRes.count {
+			t.Errorf("Objects don't match at site %s: got -> %d, want -> %d\n", site, gotRes.count, wantRes.count)
+			t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
+			break
+		}
+		if wantRes.err == nil {
+			if gotRes.err == nil {
+				continue
+			}
+			t.Errorf("Objects ERRORS don't match at site %s: got ERROR -> %s, should be -> %v\n", site, gotRes.err, nil)
+			t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
+			break
+		}
+		if wantRes.err != nil {
+			if gotRes.err == nil {
+				t.Errorf("Objects ERRORS don't match at site %s: got nil -> %s, should be -> %s\n", site, gotRes.err, wantRes.err)
+				t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
+				break
+			}
+			if gotRes.err.Error() == wantRes.err.Error() {
+				continue
+			}
+			t.Errorf("Objects ERRORS don't match at site %s: got ERROR -> %s, should be -> %s\n", site, gotRes.err.Error(), wantRes.err.Error())
+			t.Errorf("Wrong object received:\ngot:\t%v\nwant:\t%v\n", got, want)
+			break
+		}
+	}
 }
