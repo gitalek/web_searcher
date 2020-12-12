@@ -54,8 +54,8 @@ func worker(ctx context.Context, url, k string, wg *sync.WaitGroup, storage *Mut
 	storage.SetValue(url, count, nil)
 }
 
-func Search(ctx context.Context, k string, urls []string, limit, timeout int) map[string]*UrlResult {
-	initStorage := make(map[string]*UrlResult, len(urls))
+func Search(ctx context.Context, k string, urls []string, limit, timeout int) map[string]UrlResult {
+	initStorage := make(map[string]UrlResult, len(urls))
 	storage := NewStorage(initStorage)
 	var wg sync.WaitGroup
 	// no-limits case
