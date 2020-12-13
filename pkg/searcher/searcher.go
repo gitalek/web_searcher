@@ -19,7 +19,7 @@ func worker(ctx context.Context, url, k string, wg *sync.WaitGroup, storage *Mut
 	// create request
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
-		fmt.Println(err)
+		storage.SetValue(url, 0, err)
 		return
 	}
 
@@ -33,14 +33,14 @@ func worker(ctx context.Context, url, k string, wg *sync.WaitGroup, storage *Mut
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		storage.SetValue(url, 0, err)
 		return
 	}
 
 	// read body
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println(err)
+		storage.SetValue(url, 0, err)
 		return
 	}
 	err = resp.Body.Close()
@@ -51,11 +51,11 @@ func worker(ctx context.Context, url, k string, wg *sync.WaitGroup, storage *Mut
 	// search
 	count := bytes.Count(body, []byte(k))
 	// write to shared map
-	storage.SetValue(url, count)
+	storage.SetValue(url, count, nil)
 }
 
-func Search(ctx context.Context, k string, urls []string, limit, timeout int) map[string]int {
-	initStorage := make(map[string]int, len(urls))
+func Search(ctx context.Context, k string, urls []string, limit, timeout int) map[string]UrlResult {
+	initStorage := make(map[string]UrlResult, len(urls))
 	storage := NewStorage(initStorage)
 	var wg sync.WaitGroup
 	// no-limits case
